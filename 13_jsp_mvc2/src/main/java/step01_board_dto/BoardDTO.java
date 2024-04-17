@@ -21,9 +21,8 @@ public class BoardDTO {
 	private String email;
 	private String password;
 	private String content;
-	private long read_Cnt;
-	private Date enrollDT; 	//java.util.Date;
-	
+	private long readCnt;
+	private Date enrollDt; 	//java.util.Date;
 	public long getBoardId() {
 		return boardId;
 	}
@@ -60,24 +59,26 @@ public class BoardDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public long getRead_Cnt() {
-		return read_Cnt;
+	public long getReadCnt() {
+		return readCnt;
 	}
-	public void setRead_Cnt(long read_Cnt) {
-		this.read_Cnt = read_Cnt;
+	public void setReadCnt(long readCnt) {
+		this.readCnt = readCnt;
 	}
-	public Date getEnrollDT() {
-		return enrollDT;
+	public Date getEnrollDt() {
+		return enrollDt;
 	}
-	public void setEnrollDT(Date enrollDT) {
-		this.enrollDT = enrollDT;
+	public void setEnrollDt(Date enrollDt) {
+		this.enrollDt = enrollDt;
 	}
+	
 	@Override
 	public String toString() {
 		return "BoardDTO [boardId=" + boardId + ", writer=" + writer + ", subject=" + subject + ", email=" + email
-				+ ", password=" + password + ", content=" + content + ", read_Cnt=" + read_Cnt + ", enrollDT="
-				+ enrollDT + "]";
+				+ ", password=" + password + ", content=" + content + ", readCnt=" + readCnt + ", enrollDt=" + enrollDt
+				+ "]";
 	}
+	
 	
 	
 	

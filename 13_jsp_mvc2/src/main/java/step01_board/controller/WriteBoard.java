@@ -1,6 +1,7 @@
 package step01_board.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,12 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import step01_board.dao.BoardDAO;
-import step01_board_dto.BoardDTO;
+import step01_board.dto.BoardDTO;
 
 
-/**
- * Servlet implementation class WriteBoard
- */
+
 @WebServlet("/bWrite")
 public class WriteBoard extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -47,6 +46,19 @@ public class WriteBoard extends HttpServlet {
 		//DAO클래스로 DTO데이터 전송
 		//new BoardDAO();
 		BoardDAO.getInstance().insertBoard(boardDTO);
+		
+		response.setContentType("text/html; charset=UTF-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		String jsScript = """
+				<script>
+					alert('게시글이 등록되었습니다.');
+					location.href = 'bList';
+				</script>
+				"""; //location.href = 'url' => 해당 url로 이동하는 자바스크립트 함수
+		
+		out.print(jsScript);
 		
 	}
 

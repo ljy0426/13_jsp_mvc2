@@ -1,4 +1,4 @@
-package step01_board_dto;
+package step01_board.dto;
 
 import java.util.Date;
 

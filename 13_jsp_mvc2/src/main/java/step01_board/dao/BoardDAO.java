@@ -11,7 +11,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import step01_board_dto.BoardDTO;
+import step01_board.dto.BoardDTO;
 
 /*
 
@@ -82,9 +82,8 @@ public class BoardDAO {
 	
 	//데이터베이스 연동 메서드 생성
 	private void getConnection() {
-		Context initctx;
 		try {
-			initctx = new InitialContext();
+			Context initctx = new InitialContext();
 			Context envctx = (Context) initctx.lookup("java:comp/env");       
 			DataSource ds = (DataSource) envctx.lookup("jdbc/board"); 	 	  
 			conn = ds.getConnection();
@@ -96,6 +95,8 @@ public class BoardDAO {
 		if (pstmt != null) 	try {pstmt.close();} catch (SQLException e) {e.printStackTrace();}
 		if (conn != null) 	try {conn.close();} catch (SQLException e) {e.printStackTrace();}
 	}
+	
+	//처음 만들때는 여기까지 
 	
 	//게시글 입력 메서드
 	public void insertBoard(BoardDTO boardDTO){
@@ -147,6 +148,50 @@ public class BoardDAO {
 		//단위 테스트
 		System.out.println("getBoardList : " + boardList);
 		return boardList;
+	}
+	
+	public BoardDTO getBoardDetail(long boardId){
+		BoardDTO boardDTO = new BoardDTO();
+		
+		try {
+			getConnection();
+			
+			String sql = """
+					UPDATE 	BOARD
+					SET 	READ_CNT = READ_CNT + 1
+					WHERE 	BOARD_ID = ?
+					""";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, boardId);
+			pstmt.executeUpdate();
+			
+			
+			pstmt = conn.prepareStatement("SELECT * FROM BOARD WHERE BOARD_ID = ?");
+			pstmt.setLong(1, boardId);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				boardDTO.setBoardId(rs.getLong("BOARD_ID"));
+				boardDTO.setWriter(rs.getString("WRITER"));
+				boardDTO.setEmail(rs.getString("EMAIL"));
+				boardDTO.setSubject(rs.getString("SUBJECT"));
+				boardDTO.setContent(rs.getString("CONTENT"));
+				boardDTO.setReadCnt(rs.getLong("READ_CNT"));
+				boardDTO.setEnrollDt(rs.getDate("ENROLL_DT"));
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			getClose();
+		}
+		
+		//단위 테스트
+		System.out.println("detail : " + boardDTO);
+		
+		return boardDTO;
+		
 	}
 	
 	

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import step01_board.dao.BoardDAO;
-import step01_board_dto.BoardDTO;
+import step01_board.dto.BoardDTO;
 
 
 @WebServlet("/bList")

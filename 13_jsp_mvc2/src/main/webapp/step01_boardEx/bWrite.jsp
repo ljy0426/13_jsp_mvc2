@@ -4,6 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>bWrite</title>
+<!--  webapp폴더 하위경로부터 작성한다. -->
+<script src = "resources/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 
@@ -31,6 +33,7 @@
 					<td>글내용</td>
 					<td>
 						<textarea rows="10" cols="50" name="content"></textarea>
+						<script>CKEDITOR.replace("content");</script>
 					</td>
 				</tr>
 				<tr align="center">

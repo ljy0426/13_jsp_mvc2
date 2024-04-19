@@ -36,8 +36,10 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="button" value="수정">
-					<input type="button" value="삭제">
+					<!-- 해당게시글의 boardId와 update 글자 파라메타를 전달하면 bAuthentication 서블렛으로 이동 -->
+					<input type="button" value="수정" onclick="location.href='bAuthentication?boardId=${boardDTO.boardId}&menu=update';">
+					<!-- 해당게시글의 boardId와 delete 글자 파라메타를 전달하면 bAuthentication 서블렛으로 이동 -->
+					<input type="button" value="삭제" onclick="location.href='bAuthentication?boardId=${boardDTO.boardId}&menu=delete';">
 					<input type="button" value="목록보기">
 				</td>
 			</tr>

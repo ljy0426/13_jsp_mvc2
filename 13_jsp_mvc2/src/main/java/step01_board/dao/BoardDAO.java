@@ -194,6 +194,82 @@ public class BoardDAO {
 		
 	}
 	
+	public boolean checkAuthenticationUser(BoardDTO boardDTO){ //AuthenticationBoard.java하고 옴.
+		
+		System.out.println("checkAuthenticationUser param : " + boardDTO); //중간 점검
+		
+		boolean isAuthenticationUser = false;
+		
+		try {
+			
+			getConnection();
+			String sql = """
+					SELECT * 
+					FROM 	BOARD
+					WHERE 	BOARD_ID = ?
+					AND 	PASSWORD = ?
+					""";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setLong(1, boardDTO.getBoardId());
+			pstmt.setString(2, boardDTO.getPassword());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) { //실행했음-->id, pw가 일치했음
+				isAuthenticationUser=true;
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			getClose();
+		}
+		
+		System.out.println("checkAuthenticationUser param : " + isAuthenticationUser); //중간 점검
+		
+		return isAuthenticationUser;
+	}
+	
+	public void updateBoard(BoardDTO boardDTO){
+		
+		System.out.println("updateBoard param : " + boardDTO);
+		try {
+			
+			getConnection();
+			String sql = """
+					UPDATE BOARD
+					SET 	SUBJECT = ?,
+							CONTENT = ?
+					WHERE 	BOARD_ID = ?
+					""";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardDTO.getSubject());
+			pstmt.setString(2, boardDTO.getContent());
+			pstmt.setLong(3, boardDTO.getBoardId());
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			getClose();
+		} //만들고 다시 UpdateBoard로감
+		
+	}
+	
+	public void deleteBoard(long boardId){
+		try {
+			
+			getConnection();
+			pstmt = conn.prepareStatement("DELETE FROM BOARD WHERE BOARD_ID = ?");
+			pstmt.setLong(1, boardId);
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			getClose();
+		}
+	}
+	
 	
 	
 

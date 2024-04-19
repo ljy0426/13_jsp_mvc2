@@ -130,7 +130,6 @@ public class BoardDAO {
 			//조회된 데이터를 ArrayList<BoardDTO>타입에 저장
 			while(rs.next()) {
 				BoardDTO temp = new BoardDTO();
-				
 				temp.setBoardId(rs.getLong("BOARD_ID"));
 				temp.setWriter(rs.getString("WRITER"));
 				temp.setSubject(rs.getString("SUBJECT"));

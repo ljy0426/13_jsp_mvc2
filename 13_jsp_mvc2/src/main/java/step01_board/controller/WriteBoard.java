@@ -50,7 +50,7 @@ public class WriteBoard extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		PrintWriter out = response.getWriter();
-		
+			
 		String jsScript = """
 				<script>
 					alert('게시글이 등록되었습니다.');

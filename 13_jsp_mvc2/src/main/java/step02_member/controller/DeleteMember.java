@@ -37,10 +37,10 @@ public class DeleteMember extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		// session에서 조회한 회원의 profileUUID를 조회한다.
-		String profileUID = MemberDAO.getInstance().getMemberDetail((String)session.getAttribute("memberId")).getProfileUUID();
+		String profileUUID = MemberDAO.getInstance().getMemberDetail((String)session.getAttribute("memberId")).getProfileUUID();
 		
 		// 회원의 uuid파일을 삭제한다.
-		new File(profileRepositoryPath + profileUID).delete();
+		new File(profileRepositoryPath + profileUUID).delete();
 		
 		// DAO로 회원의 id를 전달하여 delete쿼리를 진행한다.
 		MemberDAO.getInstance().deleteMember((String)session.getAttribute("memberId"));
